@@ -1,0 +1,82 @@
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  1) <?php
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  2) 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  3) namespace App\Form;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  4) 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  5) use App\Entity\Category;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  6) use App\Entity\Property;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  7) use Symfony\Component\Form\AbstractType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  8) use Symfony\Component\Form\FormBuilderInterface;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100  9) use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 10) use Symfony\Component\OptionsResolver\OptionsResolver;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 11) use Symfony\Component\Form\Extension\Core\Type\DateType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 12) use Symfony\Component\Form\Extension\Core\Type\TextType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 13) use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 14) use Symfony\Component\Form\Extension\Core\Type\NumberType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 15) use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 16) use Symfony\Component\Validator\Constraints\NotBlank;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 17) use Symfony\Component\Validator\Constraints\PositiveOrZero;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 18) use Symfony\Component\Validator\Constraints\Required;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 19) 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 20) class PropertyType extends AbstractType
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 21) {
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 22)     public function buildForm(FormBuilderInterface $builder, array $options): void
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 23)     {
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 24)         $builder
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 25)             ->add('title',TextType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 26)                 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 27)             ])
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 28)             ->add('description',TextareaType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 29)                 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 30)             ])
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 31)             ->add('price',NumberType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 32)                 'constraints' =>[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 33)                     new PositiveOrZero(message:'veuillez entrer un chiffre entier'),
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 34)                     new NotBlank(message:'veuillez entrer une valeur')
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 35)                 ],
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 36)                 'attr' => [
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 37)                     'placeholder' => 'entrer un chiffre'
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 38)                 ]
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 39)             ])
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 40)             ->add('bedroom',NumberType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 41) 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 42)                 'constraints' =>[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 43)                     new PositiveOrZero(message:'veuillez entrer un chiffre entier'),
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 44)                     new NotBlank(message:'veuillez entrer une valeur')
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 45)                 ],
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 46)                 ]
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 47)             )
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 48)             ->add('bathroom',NumberType::class,)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 49)             ->add('year',DateType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 50)                 'widget' => 'single_text',
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 51)             ])
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 52)             ->add('floor',NumberType::class,)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 53)             ->add('buildingCondition',TextType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 54)             ->add('livingArea',NumberType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 55)             ->add('kitchenType',TextType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 56)             ->add('energyClass',ChoiceType::class,)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 57)             ->add('numberClass',TextType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 58)             ->add('adress',TextType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 59)             ->add('zipCode',TextType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 60)             ->add('city',TextType::class)
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 61)             ->add('state',ChoiceType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 62)                 'choices' => ['louer' => 'louer', 'acheter' => 'acheter']
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 63)                 ,
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 64)                 'choice_attr' => [
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 65)                     'louer' => ['data-color' => 'Red'],
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 66)                     'acheter' => ['data-color' => 'Yellow'],
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 67)                 ],
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 68)             ])
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 69)             ->add('category',EntityType::class,[
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 70)                 'class' => Category::class,
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 71)                 'choice_label' => 'title'
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 72)             ])
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 73)         ;
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 74)     }
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 75) 
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 76)     public function configureOptions(OptionsResolver $resolver): void
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 77)     {
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 78)         $resolver->setDefaults([
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 79)             'data_class' => Property::class,
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 80)         ]);
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 81)     }
+6b9ae880 (remy 2022-11-25 11:56:27 +0100 82) }
