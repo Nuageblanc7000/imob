@@ -56,7 +56,7 @@ class PropertyType extends AbstractType
             ->add('energyClass',ChoiceType::class,)
             ->add('numberClass',TextType::class)
             ->add('adress',TextType::class)
-            ->add('zipCode',TextType::class)
+            ->add('zipCod',TextType::class)
             ->add('city',TextType::class)
             ->add('state',ChoiceType::class,[
                 'choices' => ['louer' => 'louer', 'acheter' => 'acheter']
