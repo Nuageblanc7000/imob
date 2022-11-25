@@ -1,0 +1,16 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    align-items: center;
+    min-height: 50px;
+    height: 100%;
+    .header{
+        background-color: red;
+        
+    }
+    .nav-bar-imob{
+        flex-grow: 1;
+    }
+}

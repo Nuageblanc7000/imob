@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use DateTimeImmutable;
 use App\Entity\Property;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Property>
@@ -42,17 +43,22 @@ class PropertyRepository extends ServiceEntityRepository
 //    /**
 //     * @return Property[] Returns an array of Property objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   public function findByCreateAt($date): array
+   {
+    $date = new DateTimeImmutable('now -1d');
+       return $this->createQueryBuilder('p')
+           ->select('p','c','u','i')
+           ->leftJoin('p.category','c')
+           ->leftJoin('p.user','u')
+           ->leftJoin('p.images','i')
+           ->where("p.createAt <= :date")->orWhere("p.createAt > :date")
+           ->setParameter(':date',$date)
+   
+           ->setMaxResults(20)
+           ->getQuery()
+           ->getArrayResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Property
 //    {
